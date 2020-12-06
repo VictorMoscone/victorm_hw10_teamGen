@@ -66,5 +66,16 @@ class Managera extends Employee {
     };
 };
 
-const victor = new Managera("Victor", 1, "test@yahoo.com", 101);
-console.log(victor)
+// This goes to the Engineer.js.
+class Engineera extends Employee {
+    constructor(name, id, email, github) {
+        super(name, id, email);
+        this.github = github;
+    };
+    getGithub() {
+
+    };
+    getRole() {
+        return "Engineer";
+    };
+};
