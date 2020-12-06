@@ -73,9 +73,23 @@ class Engineera extends Employee {
         this.github = github;
     };
     getGithub() {
-
+        return this.github;
     };
     getRole() {
         return "Engineer";
+    };
+};
+
+// This goes to the Engineer.js.
+class Interna extends Employee {
+    constructor(name, id, email, school) {
+        super(name, id, email);
+        this.school = school;
+    };
+    getSchool() {
+        return this.school;
+    };
+    getRole() {
+        return "Intern";
     };
 };
