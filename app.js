@@ -33,13 +33,8 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-name
-id
-email
-getName()
-getId()
-getEmail()
-getRole() // Returns 'Employee'
+
+// This goes to Employee.js.
 class Employee {
     constructor(name, id, email){
         this.name = name;
@@ -56,6 +51,20 @@ class Employee {
         return this.email;
     };
     getRole(){
-
+        return "Employee";
     };
 };
+
+// This goes to the Manager.js.
+class Managera extends Employee {
+    constructor(name, id, email, officeNumber) {
+        super(name, id, email);
+        this.officeNumber = officeNumber;
+    };
+    getRole() {
+        return "Manager";
+    };
+};
+
+const victor = new Managera("Victor", 1, "test@yahoo.com", 101);
+console.log(victor)
