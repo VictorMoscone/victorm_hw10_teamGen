@@ -17,9 +17,18 @@ const render = require("./lib/htmlRenderer");
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
-render([
-    new Manager("Foo", 1, "test@test.com", 100),
-])
+
+const start = () => {
+    let asd = render([
+        new Manager("Foo", 1, "test@test.com", 100),
+    ]);
+    fs.writeFile(outputPath, asd, function (err) {
+        if (err) throw err;
+        console.log("Created!");
+    });
+};
+
+start()
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
