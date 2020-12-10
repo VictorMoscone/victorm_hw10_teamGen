@@ -62,6 +62,10 @@ const newEmpLogic = (answers) => {
         console.log("Adding Intern");
     } else {
         console.log("You're done!");
+        fs.writeFile(outputPath, render(employeeBatch), (err) => {
+            if (err) throw err;
+            console.log("File Written.");
+        })
     };
 };
 
