@@ -49,7 +49,9 @@ const managerPrompt = () => {
         }
     ])
     .then(answers => {
-        newEmpLogic(answers);
+        const managerGen = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffNum);
+        employeeBatch.push(managerGen);
+        newEmpLogic(answers.addNew);
     });
 };
 
