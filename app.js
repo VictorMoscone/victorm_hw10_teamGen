@@ -9,8 +9,6 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const { create } = require("domain");
-
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -19,25 +17,9 @@ const { create } = require("domain");
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
-// inquirer
-//     .prompt([
-//         {
-//             type: `list`,
-//             name: `employeeType`,
-//             message: `Which type of employee do you want?`,
-//             choices: ["Manager", "Engineer", "Intern", "I'm done."],
-//         },
-//     ])
-//     .then(answers => {
-//         console.log(answers.employeeType);
-//         console.log("Completed!");
-//     })
-//     .catch(err => {
-//         if (err) throw err;
-//         console.log("Failed to complete.");
-//     })
+const employeeBatch = [];
 
-const initialPrompt = () => {
+const managerPrompt = () => {
     return inquirer.prompt([
         {
             type: `input`,
@@ -59,18 +41,26 @@ const initialPrompt = () => {
             name: `managerOffNum`,
             message: `Please enter the Mananger's office number:`,
         },
+        {
+            type: `list`,
+            name: `addNew`,
+            message: `Would you like no add a new employee?`,
+            choices: ["Engineer", "Intern", "I'm done."],
+        }
     ])
     .then(answers => {
-        let createEmployee = render([
-            new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffNum)])
-        fs.writeFile(outputPath, createEmployee, function (err) {
-            if (err) throw err;
-            console.log("Created!");
-        })
-    })
+        if (answers.addNew == "Engineer") {
+            console.log("Adding Engineer");
+        } else if (answers.addNew == "Intern") {
+            console.log("Adding Intern");
+        } else {
+            console.log("You're done!");
+        };
+    });
 };
 
-initialPrompt()
+managerPrompt();
+
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
