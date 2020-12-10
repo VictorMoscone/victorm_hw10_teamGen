@@ -44,7 +44,7 @@ const managerPrompt = () => {
         {
             type: `list`,
             name: `addNew`,
-            message: `Would you like no add a new employee?`,
+            message: `Would you like to add another employee?`,
             choices: ["Engineer", "Intern", "I'm done."],
         }
     ])
@@ -55,10 +55,46 @@ const managerPrompt = () => {
     });
 };
 
+const engineerPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: `input`,
+            name: `engineerName`,
+            message: `Please enter the Engineer's name:`,
+        },
+        {
+            type: `input`,
+            name: `engineerId`,
+            message: `Please enter the Engineer's ID:`,
+        },
+        {
+            type: `input`,
+            name: `engineerEmail`,
+            message: `Please enter the Engineer's email:`,
+        },
+        {
+            type: `input`,
+            name: `engGitHub`,
+            message: `Please enter the Engineer's GitHub username:`,
+        },
+        {
+            type: `list`,
+            name: `addNew`,
+            message: `Would you like to add another employee?`,
+            choices: ["Engineer", "Intern", "I'm done."],
+        }
+    ])
+    .then(answers => {
+        const engineerGen = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engGitHub);
+        employeeBatch.push(engineerGen);
+        newEmpLogic(answers.addNew);
+    });
+};
+
 const newEmpLogic = (answers) => {
-    if (answers.addNew == "Engineer") {
-        console.log("Adding Engineer");
-    } else if (answers.addNew == "Intern") {
+    if (answers == "Engineer") {
+        engineerPrompt();
+    } else if (answers == "Intern") {
         console.log("Adding Intern");
     } else {
         console.log("You're done!");
