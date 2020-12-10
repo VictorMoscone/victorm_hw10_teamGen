@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { create } = require("domain");
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -18,33 +19,58 @@ const render = require("./lib/htmlRenderer");
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
-const start = () => {
-    let asd = render([
-        new Manager("Foo", 1, "test@test.com", 100),
-        new Engineer("Bruce", 2, "bruce@test.com", "BruceTester"),
-    ]);
-    fs.writeFile(outputPath, asd, function (err) {
-        if (err) throw err;
-        console.log("Created!");
-    });
-};
+// inquirer
+//     .prompt([
+//         {
+//             type: `list`,
+//             name: `employeeType`,
+//             message: `Which type of employee do you want?`,
+//             choices: ["Manager", "Engineer", "Intern", "I'm done."],
+//         },
+//     ])
+//     .then(answers => {
+//         console.log(answers.employeeType);
+//         console.log("Completed!");
+//     })
+//     .catch(err => {
+//         if (err) throw err;
+//         console.log("Failed to complete.");
+//     })
 
-inquirer
-    .prompt([
+const initialPrompt = () => {
+    return inquirer.prompt([
         {
-            type: `list`,
-            name: `employeeType`,
-            message: `Which type of employee do you want?`,
-            choices: ["Manager", "Engineer", "Intern", "I'm done."],
+            type: `input`,
+            name: `managerName`,
+            message: `Please enter the Mananger's name:`,
+        },
+        {
+            type: `input`,
+            name: `managerId`,
+            message: `Please enter the Mananger's ID:`,
+        },
+        {
+            type: `input`,
+            name: `managerEmail`,
+            message: `Please enter the Mananger's email:`,
+        },
+        {
+            type: `input`,
+            name: `managerOffNum`,
+            message: `Please enter the Mananger's office number:`,
         },
     ])
     .then(answers => {
-        console.log(JSON.stringify(answers));
+        let createEmployee = render([
+            new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffNum)])
+        fs.writeFile(outputPath, createEmployee, function (err) {
+            if (err) throw err;
+            console.log("Created!");
+        })
     })
-    .catch(err => {
-        if (err) throw err;
-        console.log("Completed!");
-    })
+};
+
+initialPrompt()
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
