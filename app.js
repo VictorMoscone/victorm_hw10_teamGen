@@ -91,11 +91,47 @@ const engineerPrompt = () => {
     });
 };
 
+const internPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: `input`,
+            name: `internName`,
+            message: `Please enter the Intern's name:`,
+        },
+        {
+            type: `input`,
+            name: `internId`,
+            message: `Please enter the Intern's ID:`,
+        },
+        {
+            type: `input`,
+            name: `internEmail`,
+            message: `Please enter the Intern's email:`,
+        },
+        {
+            type: `input`,
+            name: `internSchool`,
+            message: `Please enter the Intern's school:`,
+        },
+        {
+            type: `list`,
+            name: `addNew`,
+            message: `Would you like to add another employee?`,
+            choices: ["Engineer", "Intern", "I'm done."],
+        }
+    ])
+    .then(answers => {
+        const internGen = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+        employeeBatch.push(internGen);
+        newEmpLogic(answers.addNew);
+    });
+};
+
 const newEmpLogic = (answers) => {
     if (answers == "Engineer") {
         engineerPrompt();
     } else if (answers == "Intern") {
-        console.log("Adding Intern");
+        internPrompt();
     } else {
         console.log("You're done!");
         fs.writeFile(outputPath, render(employeeBatch), (err) => {
