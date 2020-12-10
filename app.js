@@ -49,14 +49,18 @@ const managerPrompt = () => {
         }
     ])
     .then(answers => {
-        if (answers.addNew == "Engineer") {
-            console.log("Adding Engineer");
-        } else if (answers.addNew == "Intern") {
-            console.log("Adding Intern");
-        } else {
-            console.log("You're done!");
-        };
+        newEmpLogic(answers);
     });
+};
+
+const newEmpLogic = (answers) => {
+    if (answers.addNew == "Engineer") {
+        console.log("Adding Engineer");
+    } else if (answers.addNew == "Intern") {
+        console.log("Adding Intern");
+    } else {
+        console.log("You're done!");
+    };
 };
 
 managerPrompt();
