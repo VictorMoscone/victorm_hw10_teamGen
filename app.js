@@ -21,6 +21,7 @@ const render = require("./lib/htmlRenderer");
 const start = () => {
     let asd = render([
         new Manager("Foo", 1, "test@test.com", 100),
+        new Engineer("Bruce", 2, "bruce@test.com", "BruceTester"),
     ]);
     fs.writeFile(outputPath, asd, function (err) {
         if (err) throw err;
@@ -28,7 +29,22 @@ const start = () => {
     });
 };
 
-start()
+inquirer
+    .prompt([
+        {
+            type: `list`,
+            name: `employeeType`,
+            message: `Which type of employee do you want?`,
+            choices: ["Manager", "Engineer", "Intern", "I'm done."],
+        },
+    ])
+    .then(answers => {
+        console.log(JSON.stringify(answers));
+    })
+    .catch(err => {
+        if (err) throw err;
+        console.log("Completed!");
+    })
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
