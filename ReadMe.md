@@ -41,7 +41,7 @@ Our jest tests were provided to us as a way to nudge us in the right direction w
 * Primary Usage: Allow users to generate a webpage with that provides information on their team.
 * Seen below -
 
-[![YouTube Video Tutorial](https://img.youtu.be/WgE_-fT7Ye0/0.jpg)](https://youtu.be/WgE_-fT7Ye0)
+[![YouTube Video Tutorial](https://img.youtube.com/vi/WgE_-fT7Ye0/0.jpg)](https://www.youtube.com/watch?v=WgE_-fT7Ye0)
 
 ### **Contributing**
 
